@@ -24,6 +24,9 @@ public class App {
     private static InputDataForAddressSecondPart inputDataForAddressSecondPart;
     private static InputDataForStudent inputDataForStudent;
     private static InputDataForTeacher inputDataForTeacher;
+    private static Student[] students =new Student[10];
+    private static Address[] addresses=new Address[10];
+    private static Teacher[] teachers= new Teacher[10];
     private static DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
     private static StudentDao studentDao;
     private static AddressDao addressDao;
@@ -40,6 +43,14 @@ public class App {
         initializeDao(entityManager);
         entityManager.getTransaction().begin();
         initializeData();
+        inputBasicData=new InputBasicData( "ali","javadiyan");
+
+          deleteData( entityManager );
+       // deleteAllData(entityManager);
+        //   updateData( entityManager );
+         showData( entityManager );
+
+
         entityManager.getTransaction().commit();
         entityManager.close();
         JPAUtil.shutdown();
@@ -53,115 +64,107 @@ public class App {
             inputBasicData=new InputBasicData( "ali","javadi");
             try {
                 inputDataForTeacher=new InputDataForTeacher( 123324334,10.1,dateFormat.parse("2018/09/09") );
-                } catch (ParseException e) {  System.out.println("************************************"  );e.printStackTrace(); }
-            Teacher teacher1=createTeacher();
+
+            } catch (ParseException e) {  e.printStackTrace(); }
+            teachers[0]=createTeacher();
             inputBasicData=new InputBasicData( "ali","javadiyan");
             try {
                 inputDataForTeacher=new InputDataForTeacher( 123324335,10.1,dateFormat.parse("2018/09/09") );
-                } catch (ParseException e) {  System.out.println("************************************"  );e.printStackTrace(); }
-            Teacher teacher2=createTeacher();
+                } catch (ParseException e) {   e.printStackTrace(); }
+            teachers[1]=createTeacher();
 
             inputBasicData=new InputBasicData( "masood","rahimi");
             try {
                 inputDataForStudent=new InputDataForStudent( 123324333, dateFormat.parse("2018/09/09") );
-                } catch (ParseException e) {  System.out.println("************************************"  );e.printStackTrace(); }
-            Student student1=createStudent();
+                } catch (ParseException e) {  e.printStackTrace(); }
+             students[0]=createStudent();
             inputBasicData=new InputBasicData( "rahim","solati");
             try {
                 inputDataForStudent=new InputDataForStudent( 123324324, dateFormat.parse("2018/09/09") );
-                } catch (ParseException e) {  System.out.println("************************************"  );e.printStackTrace(); }
-            Student student2=createStudent();
+                } catch (ParseException e) { e.printStackTrace(); }
+            students[1]=createStudent();
 
             inputDataForAddressFirstPart=new InputDataForAddressFirstPart(22," NORTH 17shahrivar");
             inputDataForAddressSecondPart=new InputDataForAddressSecondPart("london", 123324324 ,"    Mr John Smith  132, My Street, Bigtown BG23 4YZ England");
-            Address address1=createAddress();
+                addresses[0]=createAddress();
             inputDataForAddressFirstPart=new InputDataForAddressFirstPart(23," NORTH SHAHID");
             inputDataForAddressSecondPart=new InputDataForAddressSecondPart("New York", 123324324 ,"    Mr John Smith 132, My Street, Kingston, New York 12401 United States");
-            Address address2=createAddress();
+                addresses[1]=createAddress();
             inputDataForAddressFirstPart=new InputDataForAddressFirstPart(24," south 17shahrivar");
             inputDataForAddressSecondPart=new InputDataForAddressSecondPart("london", 123324324 ,"    Mr John Smith  132, My Street, Bigtown BG23 4YZ England");
-            Address address3=createAddress();
+                addresses[2]=createAddress();
             inputDataForAddressFirstPart=new InputDataForAddressFirstPart(25," south SHAHID");
             inputDataForAddressSecondPart=new InputDataForAddressSecondPart("New York", 123324324 ,"    Mr John Smith 132, My Street, Kingston, New York 12401 United States");
-            Address address4=createAddress();
+                addresses[3]=createAddress();
 
 
             //Teacher
 
              Set<Student> studentSet1= new HashSet<>();
-             studentSet1.add(student1);
-             studentSet1.add(student1);
-                 teacher1.setAddress(address1);
-                 teacher1.setStudentSet(studentSet1);
+             studentSet1.add(students[0]);
+             studentSet1.add(students[0]);
+
+                   teachers[0].setAddress(addresses[0]);
+                   teachers[0].setStudentSet(studentSet1);
+
+
 
              Set<Student> studentSet2= new HashSet<>();
-             studentSet2.add(student2);
-              studentSet2.add(student2);
+             studentSet2.add(students[1]);
+             studentSet2.add(students[1]);
 
+                 teachers[1].setAddress(addresses[1]);
+                 teachers[1].setStudentSet(studentSet2);
 
-                 teacher2.setAddress(address2);
-                 teacher2.setStudentSet(studentSet2);
-
-
-
-
-
-             teacherDao.save(teacher1);
-
-             teacherDao.save(teacher2);
+                    teacherDao.save(teachers[0]);
+                    teacherDao.save(teachers[1]);
 
             //Address
             Set<Student> studentSet3= new HashSet<>();
-            studentSet3.add(student1);
-            studentSet3.add(student2);
-            address1.setStudentSet(studentSet3);
-            address1.setTeacher(teacher1);
+            studentSet3.add(students[0]);
+            studentSet3.add(students[1]);
+                addresses[0].setStudentSet(studentSet3);
+                addresses[0].setTeacher(teachers[0]);
+
             Set<Student> studentSet4= new HashSet<>();
-            studentSet4.add(student1);
-            studentSet4.add(student2);
-            address2.setStudentSet(studentSet4);
-            address2.setTeacher(teacher2);
+            studentSet4.add(students[0]);
+            studentSet4.add(students[1]);
+                addresses[1].setStudentSet(studentSet4);
+                addresses[1].setTeacher(teachers[1]);
 
             Set<Student> studentSet5= new HashSet<>();
-            studentSet5.add(student1);
-            studentSet5.add(student2);
-            address3.setStudentSet(studentSet4);
-            address3.setTeacher(teacher2);
+            studentSet5.add(students[0]);
+            studentSet5.add(students[1]);
+                addresses[2].setStudentSet(studentSet5);
+                addresses[2].setTeacher(teachers[1]);
             Set<Student> studentSet6= new HashSet<>();
-            studentSet6.add(student1);
-            studentSet6.add(student2);
-            address4.setStudentSet(studentSet4);
-            address4.setTeacher(teacher2);
+            studentSet6.add(students[0]);
+            studentSet6.add(students[1]);
+                addresses[3].setStudentSet(studentSet6);
+                addresses[3].setTeacher(teachers[1]);
 
-            addressDao.save(address1);
-            addressDao.save(address2);
-            addressDao.save(address3);
-            addressDao.save(address4);
+                addressDao.save(addresses[0]);
+                addressDao.save(addresses[1]);
+                addressDao.save(addresses[2]);
+                addressDao.save(addresses[3]);
+
              //Student
             Set<Teacher> teacherSet1= new HashSet<>();
-            teacherSet1.add(teacher1);
-            teacherSet1.add(teacher2);
-                student1.setAddress(address2);
-                student1.setTeacherSet(teacherSet1);
+            teacherSet1.add(teachers[0]);
+            teacherSet1.add(teachers[1]);
+                students[0].setAddress(addresses[1]);
+                students[0].setTeacherSet(teacherSet1);
 
 
              Set<Teacher> teacherSet2= new HashSet<>();
-             teacherSet2.add(teacher1);
-             teacherSet2.add(teacher2);
-                student2.setAddress(address2);
-                student2.setTeacherSet(teacherSet2);
+             teacherSet2.add(teachers[0]);
+             teacherSet2.add(teachers[1]);
+                students[1].setAddress(addresses[1]);
+                students[1].setTeacherSet(teacherSet2);
 
 
-            studentDao.save(student1);
-
-            studentDao.save(student2);
-
-
-
-
-
-
-
+                studentDao.save(students[0]);
+                studentDao.save(students[1]);
 
 
         }
@@ -211,7 +214,7 @@ public class App {
     }
     public static void deleteAllData(EntityManager entityManager)
     {
-//        entityManager.createNamedQuery("delete from student1").executeUpdate();
+   //      entityManager.createNamedQuery("delete from student[1]").executeUpdate();
 //        entityManager.createNamedQuery("delete from student2").executeUpdate();
 //        entityManager.createNamedQuery("delete from address1").executeUpdate();
 //        entityManager.createNamedQuery("delete from address2").executeUpdate();
@@ -219,6 +222,66 @@ public class App {
 //        entityManager.createNamedQuery("delete from address4").executeUpdate();
 //        entityManager.createNamedQuery("delete from teacher1").executeUpdate();
 //        entityManager.createNamedQuery("delete from teacher2").executeUpdate();
+    }
+    public static   void  deleteData(EntityManager entityManager )
+    {
+        Address newAddress=  addressDao.load(4);
+      try {
+          addressDao.delete( newAddress);
+      }catch (Exception e){}
+
+        System.out.println("************************************llllllllllllllllll\n"  );
+
+
+    }
+    public static   void  updateData(EntityManager entityManager )
+    {
+        inputDataForAddressFirstPart=new InputDataForAddressFirstPart(36," south SHAHID");
+        inputDataForAddressSecondPart=new InputDataForAddressSecondPart("New York1", 123324324 ,"    Mr John Smith 132, My Street, Kingston, New York 12401 United States");
+
+        addresses[4]=createAddress();
+        Set<Student> studentSet6= new HashSet<>();
+        studentSet6.add(students[0]);
+        studentSet6.add(students[1]);
+        addresses[4].setId(2);
+        addresses[4].setStudentSet(studentSet6);
+        addresses[4].setTeacher(teachers[1]);
+
+        addressDao.update(addresses[2]);
+    }
+    public static <T>  void  showData(EntityManager entityManager )
+    {
+        Address newAddress=  addressDao.load(4);
+        Address newAddress2=  addressDao.load(3);
+        Address newAddress3=  addressDao.load(2);
+        Address newAddress4=  addressDao.load(1);
+        Student newStudent=  studentDao.load(1);
+        Teacher newTeacher=  teacherDao.load(1);
+
+        try {
+            System.out.println("************************************\n");
+            System.out.println(" Id= " + newAddress.getId() + "  Number= " + newAddress.getNumber() + "  City= " + newAddress.getCity());
+        }catch (Exception e){}
+        System.out.println("************************************\n"  );
+        System.out.println("************************************\n"  );
+        System.out.println(" Id= "+newAddress2.getId()+"  Number= "+newAddress2.getNumber()+"  City= "+newAddress2.getCity());
+
+
+        System.out.println("************************************\n"  );
+        System.out.println("************************************\n"  );
+        System.out.println(" Id= "+newAddress3.getId()+"  Number= "+newAddress3.getNumber()+"  City= "+newAddress3.getCity());
+        System.out.println("************************************\n"  );
+        System.out.println("************************************\n"  );
+        System.out.println(" Id= "+newAddress4.getId()+"  Number= "+newAddress4.getNumber()+"  City= "+newAddress4.getCity());
+        System.out.println("************************************\n"  );
+        System.out.println("************************************\n"  );
+
+
+        System.out.println(" Id= "+newTeacher.getId()+"  FirstName= "+newTeacher.getFirstName()+"  LastName= "+newTeacher.getLastName());
+        System.out.println("************************************\n"  );
+        System.out.println("************************************\n"  );
+        System.out.println(" Id= "+newStudent.getId()+"  FirstName= "+newStudent.getFirstName()+"  LastName= "+newStudent.getLastName());
+        System.out.println("************************************\n"  );
     }
 
 
