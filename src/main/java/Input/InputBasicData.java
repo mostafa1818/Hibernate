@@ -16,9 +16,5 @@ public class InputBasicData {
                 this.firstName=firstName;
                 this.lastName=lastName;
             }
-    public InputBasicData(   )
-    {
 
-
-    }
 }
