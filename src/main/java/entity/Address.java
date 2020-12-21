@@ -6,7 +6,7 @@ import lombok.Data;
 import javax.persistence.*;
 import java.util.Set;
 
-@Data
+
 @Entity
 public class Address {
     @Id
@@ -30,9 +30,70 @@ public class Address {
     @OneToMany(mappedBy = "address")
     private Set<Student> studentSet;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "teacher_id", referencedColumnName = "id")
+    @OneToOne(targetEntity = Teacher.class)
     private Teacher teacher;
 
+    public int getId() {
+        return id;
+    }
 
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public int getNumber() {
+        return number;
+    }
+
+    public void setNumber(int number) {
+        this.number = number;
+    }
+
+    public String getState() {
+        return state;
+    }
+
+    public void setState(String state) {
+        this.state = state;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    public String getPostalAddress() {
+        return postalAddress;
+    }
+
+    public void setPostalAddress(String postalAddress) {
+        this.postalAddress = postalAddress;
+    }
+
+    public Long getPostalCode() {
+        return postalCode;
+    }
+
+    public void setPostalCode(Long postalCode) {
+        this.postalCode = postalCode;
+    }
+
+    public Set<Student> getStudentSet() {
+        return studentSet;
+    }
+
+    public void setStudentSet(Set<Student> studentSet) {
+        this.studentSet = studentSet;
+    }
+
+    public Teacher getTeacher() {
+        return teacher;
+    }
+
+    public void setTeacher(Teacher teacher) {
+        this.teacher = teacher;
+    }
 }
