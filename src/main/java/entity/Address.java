@@ -24,11 +24,9 @@ public class Address {
     @Column
     Long     postalCode;
 
-
-
-
-    @OneToMany(mappedBy = "address")
-    private Set<Student> studentSet;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name= "fk_student",nullable = false)
+    private Student student;
 
     @OneToOne(targetEntity = Teacher.class)
     private Teacher teacher;
@@ -81,12 +79,12 @@ public class Address {
         this.postalCode = postalCode;
     }
 
-    public Set<Student> getStudentSet() {
-        return studentSet;
+    public Student getStudent() {
+        return student;
     }
 
-    public void setStudentSet(Set<Student> studentSet) {
-        this.studentSet = studentSet;
+    public void setStudent(Student student) {
+        this.student = student;
     }
 
     public Teacher getTeacher() {
