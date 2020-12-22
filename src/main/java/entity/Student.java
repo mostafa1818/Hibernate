@@ -24,10 +24,8 @@ public class Student {
     @Column
     private Date  birthday  ;
 
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name= "fk_address",nullable = false)
-    private Address address;
+    @OneToMany(mappedBy = "student")
+    private Set<Address> addressSet;
 
     @ManyToMany
     @JoinTable(name = "Stu_Pro", joinColumns =@JoinColumn (name = "fk_Stu_ID"),
@@ -74,12 +72,12 @@ public class Student {
         this.birthday = birthday;
     }
 
-    public Address getAddress() {
-        return address;
+    public Set<Address> getAddressSet() {
+        return addressSet;
     }
 
-    public void setAddress(Address address) {
-        this.address = address;
+    public void setAddressSet(Set<Address> addressSet) {
+        this.addressSet = addressSet;
     }
 
     public Set<Teacher> getTeacherSet() {
