@@ -14,6 +14,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashSet;
+import java.util.Scanner;
 import java.util.Set;
 
 public class App {
@@ -43,12 +44,12 @@ public class App {
         initializeDao(entityManager);
         entityManager.getTransaction().begin();
         initializeData();
-        inputBasicData=new InputBasicData( "ali","javadiyan");
 
-          deleteData( entityManager );
-       // deleteAllData(entityManager);
-        //   updateData( entityManager );
-         showData( entityManager );
+
+        deleteData(   );
+        //updateData(   );
+        showData(   );
+
 
 
         entityManager.getTransaction().commit();
@@ -59,8 +60,10 @@ public class App {
 
     }
     public static void initializeData()   {
+
         if(studentDao.load(CHECK_STU_ID)==null)//problem
         {
+            //input first step of  data
             inputBasicData=new InputBasicData( "ali","javadi");
             try {
                 inputDataForTeacher=new InputDataForTeacher( 123324334,10.1,dateFormat.parse("2018/09/09") );
@@ -97,7 +100,7 @@ public class App {
             inputDataForAddressSecondPart=new InputDataForAddressSecondPart("New York", 123324324 ,"    Mr John Smith 132, My Street, Kingston, New York 12401 United States");
                 addresses[3]=createAddress();
 
-
+            //input data about relation
             //Teacher
 
              Set<Student> studentSet1= new HashSet<>();
@@ -119,52 +122,48 @@ public class App {
                     teacherDao.save(teachers[0]);
                     teacherDao.save(teachers[1]);
 
-            //Address
-            Set<Student> studentSet3= new HashSet<>();
-            studentSet3.add(students[0]);
-            studentSet3.add(students[1]);
-                addresses[0].setStudentSet(studentSet3);
-                addresses[0].setTeacher(teachers[0]);
-
-            Set<Student> studentSet4= new HashSet<>();
-            studentSet4.add(students[0]);
-            studentSet4.add(students[1]);
-                addresses[1].setStudentSet(studentSet4);
-                addresses[1].setTeacher(teachers[1]);
-
-            Set<Student> studentSet5= new HashSet<>();
-            studentSet5.add(students[0]);
-            studentSet5.add(students[1]);
-                addresses[2].setStudentSet(studentSet5);
-                addresses[2].setTeacher(teachers[1]);
-            Set<Student> studentSet6= new HashSet<>();
-            studentSet6.add(students[0]);
-            studentSet6.add(students[1]);
-                addresses[3].setStudentSet(studentSet6);
-                addresses[3].setTeacher(teachers[1]);
-
-                addressDao.save(addresses[0]);
-                addressDao.save(addresses[1]);
-                addressDao.save(addresses[2]);
-                addressDao.save(addresses[3]);
 
              //Student
             Set<Teacher> teacherSet1= new HashSet<>();
             teacherSet1.add(teachers[0]);
             teacherSet1.add(teachers[1]);
-                students[0].setAddress(addresses[1]);
+            Set<Address> addressSet1= new HashSet<>();
+            addressSet1.add(addresses[0]);
+            addressSet1.add(addresses[1]);
+                students[0].setAddressSet(addressSet1);
                 students[0].setTeacherSet(teacherSet1);
 
 
              Set<Teacher> teacherSet2= new HashSet<>();
              teacherSet2.add(teachers[0]);
              teacherSet2.add(teachers[1]);
-                students[1].setAddress(addresses[1]);
+            Set<Address> addressSet2= new HashSet<>();
+            addressSet1.add(addresses[0]);
+            addressSet1.add(addresses[1]);
+            students[0].setAddressSet(addressSet2);
                 students[1].setTeacherSet(teacherSet2);
 
 
                 studentDao.save(students[0]);
                 studentDao.save(students[1]);
+
+            //Address
+
+            addresses[0].setStudent(students[0]);
+            addresses[0].setTeacher(teachers[0]);
+            addressDao.save(addresses[0]);
+
+            addresses[1].setStudent(students[0]);
+            addresses[1].setTeacher(teachers[1]);
+            addressDao.save(addresses[1]);
+
+            addresses[2].setStudent(students[1]);
+            addresses[2].setTeacher(teachers[1]);
+            addressDao.save(addresses[2]);
+
+            addresses[3].setStudent(students[1]);
+            addresses[3].setTeacher(teachers[1]);
+            addressDao.save(addresses[3]);
 
 
         }
@@ -212,44 +211,28 @@ public class App {
         teacherDao=new TeacherDao(entityManager);
         addressDao=new AddressDao(entityManager);
     }
-    public static void deleteAllData(EntityManager entityManager)
-    {
-   //      entityManager.createNamedQuery("delete from student[1]").executeUpdate();
-//        entityManager.createNamedQuery("delete from student2").executeUpdate();
-//        entityManager.createNamedQuery("delete from address1").executeUpdate();
-//        entityManager.createNamedQuery("delete from address2").executeUpdate();
-//        entityManager.createNamedQuery("delete from address3").executeUpdate();
-//        entityManager.createNamedQuery("delete from address4").executeUpdate();
-//        entityManager.createNamedQuery("delete from teacher1").executeUpdate();
-//        entityManager.createNamedQuery("delete from teacher2").executeUpdate();
-    }
-    public static   void  deleteData(EntityManager entityManager )
+
+    public static   void  deleteData( )
     {
         Address newAddress=  addressDao.load(4);
       try {
           addressDao.delete( newAddress);
       }catch (Exception e){}
 
-        System.out.println("************************************llllllllllllllllll\n"  );
-
-
     }
-    public static   void  updateData(EntityManager entityManager )
+    public static   void  updateData(  )
     {
         inputDataForAddressFirstPart=new InputDataForAddressFirstPart(36," south SHAHID");
         inputDataForAddressSecondPart=new InputDataForAddressSecondPart("New York1", 123324324 ,"    Mr John Smith 132, My Street, Kingston, New York 12401 United States");
 
         addresses[4]=createAddress();
-        Set<Student> studentSet6= new HashSet<>();
-        studentSet6.add(students[0]);
-        studentSet6.add(students[1]);
         addresses[4].setId(2);
-        addresses[4].setStudentSet(studentSet6);
+        addresses[4].setStudent(students[0]);
         addresses[4].setTeacher(teachers[1]);
 
         addressDao.update(addresses[2]);
     }
-    public static <T>  void  showData(EntityManager entityManager )
+    public static <T>  void  showData(  )
     {
         Address newAddress=  addressDao.load(4);
         Address newAddress2=  addressDao.load(3);
@@ -276,12 +259,14 @@ public class App {
         System.out.println("************************************\n"  );
         System.out.println("************************************\n"  );
 
-
+/*
         System.out.println(" Id= "+newTeacher.getId()+"  FirstName= "+newTeacher.getFirstName()+"  LastName= "+newTeacher.getLastName());
         System.out.println("************************************\n"  );
         System.out.println("************************************\n"  );
         System.out.println(" Id= "+newStudent.getId()+"  FirstName= "+newStudent.getFirstName()+"  LastName= "+newStudent.getLastName());
         System.out.println("************************************\n"  );
+
+ */
     }
 
 
