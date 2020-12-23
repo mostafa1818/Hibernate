@@ -63,7 +63,7 @@ public class App {
             //input first step of  data
             inputBasicData = new InputBasicData("ali", "javadi");
             try {
-                inputDataForTeacher = new InputDataForTeacher(123324334, 10.1, dateFormat.parse("2018/09/09"));
+                inputDataForTeacher = new InputDataForTeacher(123324334, 10.1, dateFormat.parse("09/09/2018"));
 
             } catch (ParseException e) {
                 e.printStackTrace();
@@ -71,7 +71,7 @@ public class App {
             teachers[0] = createTeacher();
             inputBasicData = new InputBasicData("ali", "javadiyan");
             try {
-                inputDataForTeacher = new InputDataForTeacher(123324335, 10.1, dateFormat.parse("2018/09/09"));
+                inputDataForTeacher = new InputDataForTeacher(123324335, 10.1, dateFormat.parse("09/09/2018"));
             } catch (ParseException e) {
                 e.printStackTrace();
             }
@@ -79,14 +79,14 @@ public class App {
 
             inputBasicData = new InputBasicData("masood", "rahimi");
             try {
-                inputDataForStudent = new InputDataForStudent(123324333, dateFormat.parse("2018/09/09"));
+                inputDataForStudent = new InputDataForStudent(123324333, dateFormat.parse("09/09/2018"));
             } catch (ParseException e) {
                 e.printStackTrace();
             }
             students[0] = createStudent();
             inputBasicData = new InputBasicData("rahim", "solati");
             try {
-                inputDataForStudent = new InputDataForStudent(123324324, dateFormat.parse("2018/09/09"));
+                inputDataForStudent = new InputDataForStudent(123324324, dateFormat.parse("09/09/2018"));
             } catch (ParseException e) {
                 e.printStackTrace();
             }
@@ -274,7 +274,7 @@ public class App {
                 flage=true;
                 System.out.println("---------------information from students have relation by teacher----------------\n");
             }
-            System.out.println("        FirstName:  "+object.getFirstName()+  "   LastName:   " + object.getLastName()+"\n");
+            System.out.println("        FirstName:  "+object.getFirstName()+  "   LastName:   " + object.getLastName()+ "    Birthday:   " + dateFormat.format(object.getBirthday())+"\n");
             System.out.println("          _______________________________\n"  );
         }
 
