@@ -42,18 +42,13 @@ public class App {
         initializeDao(entityManager);
         entityManager.getTransaction().begin();
         initializeData();
-
-
-        deleteData();
-        //updateData(   );
+       // deleteData();
+       // updateData();
         showData();
-
 
         entityManager.getTransaction().commit();
         entityManager.close();
         JPAUtil.shutdown();
-
-
     }
 
     public static void initializeData() {
@@ -224,15 +219,12 @@ public class App {
     }
 
     public static void updateData() {
-        inputDataForAddressFirstPart = new InputDataForAddressFirstPart(36, " south SHAHID");
-        inputDataForAddressSecondPart = new InputDataForAddressSecondPart("New York1", 123324324, "    Mr John Smith 132, My Street, Kingston, New York 12401 United States");
+        Address newAddress = addressDao.load(2);
+        Student newStudent = studentDao.load(1);
 
-        addresses[4] = createAddress();
-        addresses[4].setId(2);
-        addresses[4].setStudent(students[0]);
-        addresses[4].setTeacher(teachers[1]);
 
-        addressDao.update(addresses[2]);
+        newAddress.setStudent(newStudent);
+        addressDao.update(newAddress);
     }
 
     public static <T> void showData() {
