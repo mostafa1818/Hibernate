@@ -27,7 +27,7 @@ public class Student {
     @OneToMany(mappedBy = "student")
     private Set<Address> addressSet;
 
-    @ManyToMany
+    @ManyToMany(cascade =  CascadeType.ALL)
     @JoinTable(name = "Stu_Pro", joinColumns =@JoinColumn (name = "fk_Stu_ID"),
             inverseJoinColumns =@JoinColumn(name = "FK_Tec_ID"))
     private Set<Teacher> teacherSet;

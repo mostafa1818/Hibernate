@@ -24,11 +24,11 @@ public class Address {
     @Column
     Long     postalCode;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY,cascade =  CascadeType.ALL)
     @JoinColumn(name= "fk_student",nullable = false)
     private Student student;
 
-    @OneToOne(targetEntity = Teacher.class)
+    @OneToOne(targetEntity = Teacher.class ,cascade =  CascadeType.ALL)
     private Teacher teacher;
 
     public int getId() {
