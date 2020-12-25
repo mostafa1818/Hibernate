@@ -16,18 +16,21 @@ public class Teacher {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-
     private int     id;
+
     @Column
     private String  firstName;
+
     @Column
     private String  lastName;
+
     @Column(nullable = true,unique = true)//problem
     private long    teacherCode;
    // @Check(constraints = "salary > 0")
-    @Column( columnDefinition = " Double  CHECK ( salary>0)")
 
+    @Column( columnDefinition = " Double  CHECK ( salary>0)")
     private Double  salary;
+
     @Column
     private Date  birthday  ;
 

@@ -11,16 +11,20 @@ import java.util.Set;
 public class Address {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-
     int      id;
+
     @Column(nullable = true,unique = true)//problem
     int      number;
+
     @Column
     String   state;
+
     @Column
     String   city;
+
     @Column
     String   postalAddress;
+
     @Column
     Long     postalCode;
 
